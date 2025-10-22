@@ -1,4 +1,3 @@
-
 provider "aws" {
         region = var.region
 }
@@ -13,5 +12,17 @@ resource "aws_instance" "servers" {
 
         tags = {
                 Name = each.value.name
+        }
+}
+
+resource "aws_instance" "imported_server" {
+        ami = "ami-0199d4b5b8b4fde0e"
+        instance_type = "t2.micro"
+        subnet_id = "subnet-032ba554994e26a59"
+        vpc_security_group_ids = [ "sg-052121cc0522de14e"]
+        associate_public_ip_address = true
+
+        tags = {
+          Name = "addon-server"
         }
 }
